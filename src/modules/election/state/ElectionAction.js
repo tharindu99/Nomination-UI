@@ -1,29 +1,44 @@
 import {
-    POST_ACTIVE_ELECTION_DATA
+    GET_ACTIVE_ELECTION_DATA
 } from "./ElectionTypes";
-import { API_URL } from "../config.js";
-import axios from "axios";
-// import store from '../store';
 
+//import { API_URL } from "../config.js";
+//import axios from "axios";
 
-export function postActiveElections() {
-
-    return function (dispatch) {
-        const response = axios
-            .post(
-                `${API_URL}/activeElections`,
-                data, {
-                    firstName: 'Fred',
-                    lastName: 'Flintstone'
-                  }
-            )
-            .then(response => {
-                dispatch({
-                    type: POST_ACTIVE_ELECTION_DATA,
-                    payload: response.data
-                })
-            });
+function activeElectionsLoadSuccess(activeElections) {
+    return {
+        type: GET_ACTIVE_ELECTION_DATA,
+        payload: activeElections
     };
+}
+
+        //axios.get(
+        //     `${API_BASE_URL}/elections`
+        // ).then(response => {
+        //     dispatch(activeElectionsLoadSuccess(response))
+        // });
+
+export function getActiveElections() {
+    return function (dispatch) {
+        const activeElections = [{
+            
+                summary: "Parliamentary Election 2018 ",
+                details:
+                  "All Island Parlimentary election 2018 ",
+                disabled: false
+              },
+              {
+                summary: "Cricket Council 2018",
+                details:
+                  "Sri Lanka Cricket Counsil election 2018",
+                disabled: false
+              
+        }];
+    
+        setTimeout(() => {
+            dispatch(activeElectionsLoadSuccess(activeElections));
+        }, 1000);
+    }
 }
 
 

@@ -6,7 +6,7 @@ import AdminMenu from 'components/AdminMenu/AdminMenu';
 import CreateElection from 'components/CreateElection/CreateElection';
 import CallElection from 'components/CallElection/CallElection';
 import ElectionModule from 'components/ElectionModule/ElectionModule';
-import ActiveElection from 'components/ActiveElection/ActiveElection.jsx';
+import ActiveElection from 'modules/election/activeElections';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 
@@ -83,6 +83,10 @@ class Home extends React.Component {
                         </Grid>
                     </Grid>
                     <br />
+                    <Typography variant="h5" component="h2">
+                        Pending Election Models
+                    </Typography>
+                    <br />
                     <ExpansionPanel>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                             <Typography className={classes.heading}>Election Module</Typography>
@@ -96,7 +100,15 @@ class Home extends React.Component {
 
                         </ExpansionPanelDetails>
                     </ExpansionPanel>
-                    <ExpansionPanel>
+                    <br />
+                    <Typography variant="h5" component="h2">
+                        Active Elections
+                    </Typography>
+                    <br />
+                    <ActiveElection></ActiveElection>
+
+
+                    {/* <ExpansionPanel>
                         <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
                             <Typography className={classes.heading}>Active Election</Typography>
                         </ExpansionPanelSummary>
@@ -108,7 +120,7 @@ class Home extends React.Component {
                             </Grid>
 
                         </ExpansionPanelDetails>
-                    </ExpansionPanel>
+                    </ExpansionPanel> */}
 
 
 
