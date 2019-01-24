@@ -17,7 +17,7 @@ export default function reducer(state = initialState, action) {
                 ...state,
                 all_nominations: action.payload
             };
-            case POST_NOMINATION_PAYMENTS:
+        case POST_NOMINATION_PAYMENTS:
             return {
                 ...state,
                 candidatePayments: action.payload

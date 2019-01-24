@@ -6,8 +6,8 @@ import Login from 'pages/Login/Login';
 import NominationForm from 'modules/nomination/NominationForm';
 
 import Home from 'pages/USER/Home/Home';
-import Objection from 'pages/USER/Objection/Objection'
-import Profile from 'pages/USER/Profile/Profile'
+import Objection from 'pages/USER/Objection/Objection';
+import Profile from 'modules/user/UserProfile';
 
 import Admin_home from 'pages/ADMIN/Home/Home'
 import Admin_CallElection from 'pages/ADMIN/Call-election/Call-election'
@@ -52,7 +52,11 @@ export default class Protected extends Component {
                 <Switch>
                     <Redirect exact from='/' to='/home' />
                     <Route path='/home' component={Home} />
-                    <Route path='/login' component={Login} />
+                    <Route path='/login' component={Login} /> 
+
+
+
+                    
                     {/* <Route path='/nomination' component={Nomination} /> */}
                     <Route path='/objection' component={Objection} />
                     <Route path='/profile' component={Profile} />

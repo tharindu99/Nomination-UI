@@ -36,7 +36,7 @@ class Index extends React.Component {
     return (
       <div className={classes.root}>
         <Suspense fallback={Progress}>
-          <Router basename='/election'>
+          <Router basename=''>
             <Switch>
               {<Route path='/login' render={props => <Login {...props} updateUser={this.updateUser} />} />}
               <Route path='/logout' />
