@@ -11,6 +11,8 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom'
+
 
 const styles = theme => ({
 	root: {
@@ -38,6 +40,7 @@ const styles = theme => ({
 		state = {
 			expanded: null,
 			division: [],
+			nominationId:'dummyId'
 		};
 
 		handleChange = panel => (event, expanded) => {
@@ -50,18 +53,19 @@ const styles = theme => ({
 			axios.get(`elections/${sessionStorage.getItem('election_id')}/teams/5eedb70e-a4da-48e0-b971-e06cd19ecc70/divisions`)
 				.then(res => {
 					const division = res.data;
+					console.log("division",res.data);
 					this.setState({ division });
 			});
 	}
 
-	redirectToTarget = () => {
-		this.context.router.history.push(`/nomination`);
+	redirectToTarget = (id) => {
+		this.setState({ nominationId: id });
 	}
 
 	render() {
 		const { classes } = this.props;
+		const {props} = this;
 		const { expanded } = this.state;
-
 		return (
 			<div className={classes.root}>
 				{
@@ -84,20 +88,23 @@ const styles = theme => ({
 											<ListItem className={classes.list} key={index}>
 												<ListItemText primary="Status" />
 												<Typography>{nomination.status}</Typography>
-											</ListItem>
-										)
-									}
-									<ListItem className={classes.list}>
-									{
+												<div>
+												{
+
 										division.nomination.length < 1 &&
-										<Button variant="contained" color="primary" className={classes.button} onClick={this.redirectToTarget}>Create</Button>
+										<Button variant="contained" color="primary" onClick={() => this.redirectToTarget(nomination.id)} className={classes.button} >Create</Button>
 									}
 									{
 										division.nomination.length > 0 &&
-										<Button variant="contained" color="primary" className={classes.button} onClick={this.redirectToTarget}>View / Edit</Button>
+										<Link style={{ textDecoration: 'none' }} to={{ pathname: "nomination", state: { id: nomination.id,status: nomination.status }}}  >
+										<Button variant="contained" color="primary"  className={classes.button} >{nomination.status === 'SUBMIT' ? 'VIEW' : 'EDIT'}</Button>
+										</Link>
 									}
-										
-									</ListItem>
+									</div>
+											</ListItem>
+										)
+									}
+									
 								</List>
 								
 							</ExpansionPanelDetails>

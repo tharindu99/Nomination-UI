@@ -3,12 +3,11 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import MainMenu from 'components/MainMenu/MainMenu';
-import NominationForm from 'components/NominationForm/NominationForm';
-import { postNominationPayments } from './state/NominationAction';
+import NominationForm from 'components/NominationForm';
+import {getNominationPayments } from './state/NominationAction';
 import { connect } from 'react-redux';
 
 
-import axios from 'axios';
 
 const drawerWidth = 240;
 
@@ -84,66 +83,19 @@ const styles = theme => ({
 });
 
 class Dashboard extends React.Component {
-    // state = {
-    //     open: true,
-    //     nominations: [],
-    //     depositor:'test',
-    //     depositAmount:'test',
-    //     depositeDate:'test',
-    //     paymentStatus:'test',
-
-    // };
+  
     constructor(props) {
         super(props)
     
         this.state = {
-            open: true,
-            nominations: [],
-            depositor:'test',
-            depositAmount:'test',
-            depositeDate:'test',
-            paymentStatus:'test',
+            nominationId:''
         }
-        // this.handleSubmit = this.handleSubmit.bind(this);
-        
-        this.handleChange = this.handleChange.bind(this);
-
-
-
-
       }
-  
-
-    // handleSubmit(activeStep){
-    //     console.log("activeStep",this.state);
-    //     if (activeStep == 2){
-    //         postNominationPayments(this.state);
-    //     }
-    // };
-
-    handleChange(name) {
-        // console.log(event.target.value)
-        console.log("0000000000000000",this.state);
-
-// debugger;
-        
-
-        this.setState({
-            payments:{
-                // [name]:event.target.value,
-            } 
-        });
-        // console.log("====",this.state);
-        // console.log('**********************');
-        // console.log(this.state);
-    };
     
-    
-    componentDidMount() {
-      
-            // const { postNominationPayments, candidatePayments } = this.props;
-            // postNominationPayments();
-    
+   async componentDidMount() {
+        const { getNominationPayments } = this.props;
+       await getNominationPayments(this.props.location.state.id);
+
     }
 
     handleDrawerOpen = () => {
@@ -156,15 +108,13 @@ class Dashboard extends React.Component {
 
     render() {
         
-
-        const { classes, postNominationPayments } = this.props;
-
+        const { classes,NominationPayments } = this.props;
         return (
             <div className={classes.root}>
             
                 <CssBaseline />
                 <MainMenu title="Elections Commission of Sri Lanka"></MainMenu>
-                <NominationForm postNominationPayments={this.props.postNominationPayments} handleChange={this.handleChange} title="Elections Commission of Sri Lanka"></NominationForm>
+                <NominationForm NominationPayments = {NominationPayments}  customProps = {this.props.location.state.id} nominationStatus = {this.props.location.state.status} title="Elections Commission of Sri Lanka"></NominationForm>
 
             </div>
         );
@@ -175,16 +125,26 @@ Dashboard.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({ Election }) => {
-    const { candidatePayments } = Election;
-    return { candidatePayments }
-};
 
-const mapActionsToProps = {
+
+
+const mapStateToProps = ({Nomination}) => {
+    // const {nominationPayments} = Nomination;
+    const {getNominationPayments} = Nomination;
+    const NominationPayments = Nomination.getNominationPayments;
+
     
-    postNominationPayments
-};
 
-export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Dashboard));
-
-// export default withStyles(styles)(Dashboard);
+    // const {updateNominationPayments} = Nomination;
+  
+    
+    return {getNominationPayments,NominationPayments};
+  };
+  
+  const mapActionsToProps = {
+    // postNominationPayments,
+    getNominationPayments,
+    // updateNominationPayments
+  };
+  
+  export default connect(mapStateToProps, mapActionsToProps)(withStyles(styles)(Dashboard));
