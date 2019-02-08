@@ -7,18 +7,6 @@ import axios from "axios";
 //import { API_URL } from "../config.js";
 //import axios from "axios";
 
-function activeElectionsLoadSuccess(activeElections) {
-    return {
-        type: GET_ACTIVE_ELECTION_DATA,
-        payload: activeElections
-    };
-}
-
-        //axios.get(
-        //     `${API_BASE_URL}/elections`
-        // ).then(response => {
-        //     dispatch(activeElectionsLoadSuccess(response))
-        // });
 
 export function getActiveElections() {
     return function (dispatch) {

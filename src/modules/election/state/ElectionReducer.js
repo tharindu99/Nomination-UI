@@ -1,4 +1,4 @@
-import {ELECTION_LOAD_SUCCESS, ELECTIONS_LOADING, POST_ACTIVE_ELECTION_DATA} from "./ElectionTypes";
+import {ELECTION_LOAD_SUCCESS, ELECTIONS_LOADING} from "./ElectionTypes";
 import {REQUEST_STATE} from "../../../lib/request_redux_state";
 
 const initialState = {
@@ -16,11 +16,6 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case GET_ACTIVE_ELECTION_DATA:
-            return {
-                ...state,
-                activeElections: action.payload
-            };
         case ELECTIONS_LOADING:
             return {
                 ...state,
